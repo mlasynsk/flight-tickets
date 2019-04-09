@@ -10,6 +10,6 @@
     </parent>
     <artifactId>flight-tickets-model</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>flight-tickets</name>
+    <name>flight-tickets-model</name>
 
 </project>
