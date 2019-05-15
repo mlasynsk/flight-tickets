@@ -17,6 +17,7 @@
     <modules>
         <module>model</module>
         <module>broker</module>
+        <module>distributor</module>
     </modules>
 
     <properties>

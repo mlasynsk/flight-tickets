@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Flight-tickets-distributor</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="active nav-item">
+                <a class="nav-link" href="#" th:href="@{/index}"> Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/users}"> Users </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Page 3</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="body">
+    <form class="form-inline " action="#" th:action="@{/index}" method="post">
+        <div class="input-group mr-1">
+            <div class=" input-group-prepend input-group-text">Name</div>
+        </div>
+        <div class="input-group mr-1">
+            <div class="input-group-prepend input-group-text">Email</div>
+        </div>
+        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+    </form>
+
+
+
+    <footer class=" app-footer page-footer font-small blue pt-4">
+        2019 Copyright: SAG Politechnika Warszawska
+    </footer>
+</div>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
