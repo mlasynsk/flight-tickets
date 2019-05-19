@@ -19,3 +19,9 @@
 --------- How to check if it's working ---------------  </br>
 1 go to http://localhost:8080/swagger-ui.html#/controller  </br>
 2 try using swagger REST with 'try it' button </br>
+
+
+--- RUN All ---------------------------- <br/>
+1 naviagate to root
+2 run 'mvn clean package -DskipTests'
+3 run 'startAll.cmd'
