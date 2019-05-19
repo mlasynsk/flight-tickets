@@ -6,38 +6,47 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Flight-tickets-distributor</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="active nav-item">
-                <a class="nav-link" href="#" th:href="@{/index}"> Home </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" th:href="@{/users}"> Users </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Page 3</a>
-            </li>
-        </ul>
-    </div>
+    <div class="navbar-brand">Flight-tickets-distributor</div>
+    <h1 class="navbar-brand" th:text="${me.getName()}"/>
 </nav>
 <div id="body">
-    <form class="form-inline " action="#" th:action="@{/index}" method="post">
-        <div class="input-group mr-1">
-            <div class=" input-group-prepend input-group-text">Name</div>
+
+    <div class="me">
+
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+            <tr th:each="direction : ${me.getDirections()}">
+                <td th:text="${direction.getFrom()}"/>
+                <td th:text="${direction.getTo()}"/>
+            </tr>
+        </table>
+    </div>
+
+    <div class="others">
+
+        <div th:each="otherDistributor: ${other}">
+
+            <h2 th:text="${otherDistributor.getName()}"></h2>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                </tr>
+                <tr th:each="direction : ${otherDistributor.getDirections()}">
+                    <td th:text="${direction.getFrom()}"/>
+                    <td th:text="${direction.getTo()}"/>
+                </tr>
+            </table>
         </div>
-        <div class="input-group mr-1">
-            <div class="input-group-prepend input-group-text">Email</div>
-        </div>
-        <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
-    </form>
+    </div>
 
-
-
-    <footer class=" app-footer page-footer font-small blue pt-4">
-        2019 Copyright: SAG Politechnika Warszawska
-    </footer>
 </div>
+<footer class=" app-footer page-footer font-small blue pt-4">
+    2019 Copyright: SAG Politechnika Warszawska
+</footer>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

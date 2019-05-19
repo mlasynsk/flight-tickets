@@ -37,11 +37,19 @@ public class Distributor {
 
         Distributor that = (Distributor) o;
 
-        return getName() != null ? getName().equals(that.getName()) : that.getName() == null;
+        return this.name.equals(that.getName());
     }
 
     @Override
     public int hashCode() {
         return getName() != null ? getName().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Distributor{" +
+                "name='" + name + '\'' +
+                ", directions=" + directions +
+                '}';
     }
 }

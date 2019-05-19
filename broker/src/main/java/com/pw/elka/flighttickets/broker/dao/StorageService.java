@@ -3,19 +3,19 @@ package com.pw.elka.flighttickets.broker.dao;
 import com.pw.elka.flighttickets.model.Distributor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public class StorageService {
 
-    private List<Distributor> distributors;
+    private Set<Distributor> distributors;
 
     public StorageService() {
-        distributors = new ArrayList<>();
+        distributors = new HashSet<>();
     }
 
-    public List<Distributor> getAll() {
+    public Set<Distributor> getAll() {
         return distributors;
     }
 
