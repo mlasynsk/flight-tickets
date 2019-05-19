@@ -22,6 +22,9 @@
 
 
 --- RUN All ---------------------------- <br/>
-1 naviagate to root
-2 run 'mvn clean package -DskipTests'
-3 run 'startAll.cmd'
+1 naviagate to root <br/>
+2 run 'mvn clean package -DskipTests' <br/>
+3 run 'startAll.cmd' <br/>
+4 check if working http://localhost:8081 <br/>
+5 check if working http://localhost:8082 <br/>
+6 check if working http://localhost:8083 <br/>
