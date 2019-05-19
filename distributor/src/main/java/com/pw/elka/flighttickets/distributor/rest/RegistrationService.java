@@ -30,18 +30,18 @@ public class RegistrationService {
 
         Runnable runnable = () -> {
             while (true) {
-                Distributor me = storageService.getMe();
-                ResponseEntity<Distributor[]> otherResponseEntity = restTemplate.postForEntity(registrationUri, me, Distributor[].class);
-
-                List<Distributor> other = Stream
-                        .of(otherResponseEntity.getBody())
-                        .filter(d -> !d.equals(me))
-                        .collect(Collectors.toList());
-
-                storageService.setOthers(other);
                 try {
-                    Thread.sleep(60000);
-                } catch (InterruptedException e) {
+                    Distributor me = storageService.getMe();
+                    ResponseEntity<Distributor[]> otherResponseEntity = restTemplate.postForEntity(registrationUri, me, Distributor[].class);
+
+                    List<Distributor> other = Stream
+                            .of(otherResponseEntity.getBody())
+                            .filter(d -> !d.equals(me))
+                            .collect(Collectors.toList());
+
+                    storageService.setOthers(other);
+                    Thread.sleep(20000);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
