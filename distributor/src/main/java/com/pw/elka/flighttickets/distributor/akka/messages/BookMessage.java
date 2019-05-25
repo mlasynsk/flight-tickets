@@ -1,6 +1,8 @@
 package com.pw.elka.flighttickets.distributor.akka.messages;
 
-public class BookMessage {
+import java.io.Serializable;
+
+public class BookMessage implements Serializable {
     private String message;
 
     public BookMessage(String message) {
