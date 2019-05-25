@@ -24,21 +24,16 @@ public class IndexController {
     public String homePage(Model model) {
         Distributor me = storageService.getMe();
         model.addAttribute("me", me);
-        model.addAttribute("greetingTest", bookingService);
+        model.addAttribute("bookingService", bookingService);
         model.addAttribute("other", storageService.getOthers());
         return "index";
     }
 
-//    @PostMapping("/ask")
-//    public String ask() {
-//        try {
-//            bookingService.test();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "index";
-//    }
+    @PostMapping("/book")
+    public String ask(Model model) {
+        bookingService.test();
+
+        return this.homePage(model);
+    }
 
 }

@@ -12,7 +12,7 @@
 <div id="body">
 
 
-    <form action="#" th:action="${greetingTest.test()}">
+    <form action="#" th:action="${bookingService.test()}">
         <button type="submit">Greeting test</button>
     </form>
 
@@ -28,9 +28,9 @@
                 <td th:text="${direction.getFrom()}"/>
                 <td th:text="${direction.getTo()}"/>
                 <td>
-                    <ul th:each="ticket : ${direction.getFreeTickets()}">
-                        <li th:text="${ticket.getNumber()}" class="bg-info"></li>
-                    </ul>
+                    <div th:each="ticket : ${direction.getFreeTickets()}">
+                        <div th:text="${ticket.getNumber()}" class="bg-info"></div>
+                    </div>
                 </td>
                 <td>
                     <ul th:each="ticket : ${direction.getBookedTickets()}">
@@ -50,10 +50,16 @@
                 <tr>
                     <th>From</th>
                     <th>To</th>
+                    <th>Book</th>
                 </tr>
                 <tr th:each="direction : ${otherDistributor.getDirections()}">
                     <td th:text="${direction.getFrom()}"/>
                     <td th:text="${direction.getTo()}"/>
+                    <td>
+                        <form action="#" th:action="${bookingService.book(direction)}">
+                            <button type="submit">Book ticket</button>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
