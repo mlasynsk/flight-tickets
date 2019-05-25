@@ -1,6 +1,7 @@
 package com.pw.elka.flighttickets.distributor.akka;
 
 import akka.actor.UntypedActor;
+import com.pw.elka.flighttickets.distributor.akka.messages.BookMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -8,13 +9,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class GreetingActor extends UntypedActor {
+public class BookingActor extends UntypedActor {
 
-    //mine
     @Autowired
     private GreetingService greetingService;
-
-    // constructor
 
     @Override
     public void onReceive(Object message) throws Throwable {
@@ -25,6 +23,8 @@ public class GreetingActor extends UntypedActor {
             getSender().tell(greetingService.greet(name), getSelf());
 
 
+        } else if (message instanceof BookMessage) {
+            System.out.println("Received book message: " +  message);
         } else {
             unhandled(message);
         }
@@ -45,7 +45,6 @@ public class GreetingActor extends UntypedActor {
         public void setName(String name) {
             this.name = name;
         }
-// standard constructors/getters
 
     }
 }

@@ -42,10 +42,11 @@ public class Cfg {
     @Autowired
     private ActorSystem actorSystem;
 
+
     @Bean
     public ActorSystem actorSystem() {
-        Config config = ConfigFactory.load("LOT.conf");
-        System.out.println(config);
+        String configFile = System.getProperty("config.file");
+        Config config = ConfigFactory.load(configFile);
         ActorSystem system = ActorSystem.create("akka-spring-demo", config);
         System.out.println(system.settings().config().getString("akka.remote.netty.tcp.port"));
         SPRING_EXTENSION_PROVIDER.get(system).initialize(applicationContext);
@@ -54,7 +55,7 @@ public class Cfg {
 
     @Bean
     public ActorRef createGreeter() {
-        return actorSystem.actorOf(SPRING_EXTENSION_PROVIDER.get(actorSystem).props("greetingActor"), "greeter");
+        return actorSystem.actorOf(SPRING_EXTENSION_PROVIDER.get(actorSystem).props("bookingActor"), "greeter");
     }
 
     @Bean
