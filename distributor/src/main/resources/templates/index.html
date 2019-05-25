@@ -51,7 +51,7 @@
                     <td th:text="${direction.getFrom()}"/>
                     <td th:text="${direction.getTo()}"/>
                     <td>
-                        <form action="#" th:action="@{/book(from=${direction.getFrom()},to=${direction.getTo()})}" method="post">
+                        <form action="#" th:action="@{/book(distributor=${otherDistributor.getName()},from=${direction.getFrom()},to=${direction.getTo()})}" method="post">
                             <input type="submit" value="Book"/>
                         </form>
                     </td>

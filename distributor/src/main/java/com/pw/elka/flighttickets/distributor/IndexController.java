@@ -33,9 +33,10 @@ public class IndexController {
 
     @PostMapping("/book")
     public String ask(Model model,
+                      @ModelAttribute("distributor") String distributor,
                       @ModelAttribute("from") String from,
                       @ModelAttribute("to") String to) {
-        bookingService.book(new Direction(from,to));
+        bookingService.book(distributor,new Direction(from,to));
 
         return this.homePage(model);
     }

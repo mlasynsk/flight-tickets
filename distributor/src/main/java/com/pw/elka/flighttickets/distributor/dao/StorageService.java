@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -72,5 +71,13 @@ public class StorageService {
 
     public void setOthers(List<Distributor> others) {
         this.others = others;
+    }
+
+    public int findPortByName(String distributor) {
+        return others.stream()
+                .filter(d->distributor.equals(d.getName()))
+                .findAny()
+                .orElseThrow(RuntimeException::new)
+                .getPort();
     }
 }
