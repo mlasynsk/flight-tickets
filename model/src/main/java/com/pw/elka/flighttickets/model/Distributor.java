@@ -5,6 +5,7 @@ import java.util.List;
 public class Distributor {
     private String name;
     private List<Direction> directions;
+    private int port;
 
     public Distributor() {
     }
@@ -12,6 +13,14 @@ public class Distributor {
     public Distributor(String name, List<Direction> directions) {
         this.name = name;
         this.directions = directions;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     public String getName() {

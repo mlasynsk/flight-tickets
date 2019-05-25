@@ -1,7 +1,10 @@
 package com.pw.elka.flighttickets.distributor;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -36,11 +39,22 @@ public class Cfg {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private ActorSystem actorSystem;
+
     @Bean
     public ActorSystem actorSystem() {
-        ActorSystem system = ActorSystem.create("akka-spring-demo");
+        Config config = ConfigFactory.load("LOT.conf");
+        System.out.println(config);
+        ActorSystem system = ActorSystem.create("akka-spring-demo", config);
+        System.out.println(system.settings().config().getString("akka.remote.netty.tcp.port"));
         SPRING_EXTENSION_PROVIDER.get(system).initialize(applicationContext);
-                return system;
+        return system;
+    }
+
+    @Bean
+    public ActorRef createGreeter() {
+        return actorSystem.actorOf(SPRING_EXTENSION_PROVIDER.get(actorSystem).props("greetingActor"), "greeter");
     }
 
     @Bean

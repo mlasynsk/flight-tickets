@@ -12,7 +12,7 @@
 <div id="body">
 
 
-    <form action="#" th:action="${greetingTest.test()}" >
+    <form action="#" th:action="${greetingTest.test()}">
         <button type="submit">Greeting test</button>
     </form>
 
@@ -21,10 +21,22 @@
             <tr>
                 <th>From</th>
                 <th>To</th>
+                <th>Free</th>
+                <th>Booked</th>
             </tr>
             <tr th:each="direction : ${me.getDirections()}">
                 <td th:text="${direction.getFrom()}"/>
                 <td th:text="${direction.getTo()}"/>
+                <td>
+                    <ul th:each="ticket : ${direction.getFreeTickets()}">
+                        <li th:text="${ticket.getNumber()}" class="bg-info"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul th:each="ticket : ${direction.getBookedTickets()}">
+                        <li th:text="${ticket.getNumber()}" class="bg-warning"></li>
+                    </ul>
+                </td>
             </tr>
         </table>
     </div>

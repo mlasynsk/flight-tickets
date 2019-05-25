@@ -1,7 +1,5 @@
 package com.pw.elka.flighttickets.distributor.akka;
 
-import akka.actor.ActorCell;
-import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -20,6 +18,7 @@ public class GreetingActor extends UntypedActor {
 
     @Override
     public void onReceive(Object message) throws Throwable {
+        System.out.println(message);
         if (message instanceof Greet) {
             String name = ((Greet) message).getName();
             System.out.println("--->Received:" + name);
