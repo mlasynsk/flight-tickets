@@ -1,7 +1,10 @@
 package com.pw.elka.flighttickets.distributor;
 
+import akka.actor.ActorSystem;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -15,6 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
+import static com.pw.elka.flighttickets.distributor.akka.cfg.SpringExtension.SPRING_EXTENSION_PROVIDER;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @PropertySource("classpath:application.properties")
@@ -28,6 +32,16 @@ public class Cfg {
 
     @Value("${http.proxyHost}")
     private String host;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Bean
+    public ActorSystem actorSystem() {
+        ActorSystem system = ActorSystem.create("akka-spring-demo");
+        SPRING_EXTENSION_PROVIDER.get(system).initialize(applicationContext);
+                return system;
+    }
 
     @Bean
     public Docket productApi() {

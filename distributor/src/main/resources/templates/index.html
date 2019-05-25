@@ -11,8 +11,12 @@
 </nav>
 <div id="body">
 
-    <div class="me">
 
+    <form action="#" th:action="${greetingTest.test()}" >
+        <button type="submit">Greeting test</button>
+    </form>
+
+    <div class="me">
         <table class="table table-striped table-bordered">
             <tr>
                 <th>From</th>

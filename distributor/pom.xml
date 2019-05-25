@@ -11,6 +11,11 @@
     <artifactId>flight-tickets-distributor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>flight-tickets-distributor</name>
+
+    <properties>
+        <akka.version>2.5.23</akka.version>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
         <dependency>
@@ -18,7 +23,24 @@
             <artifactId>commons-io</artifactId>
             <version>2.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+<!--        <dependency>-->
+<!--            <groupId>org.scala-lang</groupId>-->
+<!--            <artifactId>scala-library</artifactId>-->
+<!--            <version>2.10.0-M3</version>-->
+<!--        </dependency>-->
 
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-remote_2.11</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.pw.elka</groupId>
             <artifactId>flight-tickets-model</artifactId>
@@ -28,6 +50,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
     <build>
