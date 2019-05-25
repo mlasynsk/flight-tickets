@@ -28,3 +28,6 @@
 4 check if working http://localhost:8081 <br/>
 5 check if working http://localhost:8082 <br/>
 6 check if working http://localhost:8083 <br/>
+
+---- Params to start for Intellij----- <br/>
+-Dserver.port=8081 -Dinit.file="WizAir.json" -Dconfig.file="WizAir.conf"
