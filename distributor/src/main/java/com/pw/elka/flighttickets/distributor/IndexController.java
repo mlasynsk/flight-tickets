@@ -2,12 +2,14 @@ package com.pw.elka.flighttickets.distributor;
 
 import com.pw.elka.flighttickets.distributor.akka.BookingService;
 import com.pw.elka.flighttickets.distributor.dao.StorageService;
+import com.pw.elka.flighttickets.model.Direction;
 import com.pw.elka.flighttickets.model.Distributor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Api("/")
@@ -30,8 +32,10 @@ public class IndexController {
     }
 
     @PostMapping("/book")
-    public String ask(Model model) {
-        bookingService.test();
+    public String ask(Model model,
+                      @ModelAttribute("from") String from,
+                      @ModelAttribute("to") String to) {
+        bookingService.book(new Direction(from,to));
 
         return this.homePage(model);
     }

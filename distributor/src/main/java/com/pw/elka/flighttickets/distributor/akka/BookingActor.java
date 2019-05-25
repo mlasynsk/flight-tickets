@@ -2,6 +2,7 @@ package com.pw.elka.flighttickets.distributor.akka;
 
 import akka.actor.UntypedActor;
 import com.pw.elka.flighttickets.distributor.akka.messages.BookMessage;
+import com.pw.elka.flighttickets.distributor.dao.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +15,9 @@ public class BookingActor extends UntypedActor {
     @Autowired
     private GreetingService greetingService;
 
+    @Autowired
+    private StorageService storageService;
+
     @Override
     public void onReceive(Object message) throws Throwable {
         System.out.println(message);
@@ -24,7 +28,9 @@ public class BookingActor extends UntypedActor {
 
 
         } else if (message instanceof BookMessage) {
+            BookMessage bookMessage = (BookMessage) message;
             System.out.println("Received book message: " +  message);
+            storageService.book(bookMessage.getDirection());
         } else {
             unhandled(message);
         }

@@ -2,16 +2,17 @@ package com.pw.elka.flighttickets.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Direction {
+public class Direction implements Serializable {
     private String from;
     private String to;
 
     @JsonIgnore
-    private Set<Ticket> tickets;
+    transient private Set<Ticket> tickets;
 
     public Direction() {
         tickets = new HashSet<>();

@@ -32,7 +32,8 @@ public class BookMessage implements Serializable {
     @Override
     public String toString() {
         return "BookMessage{" +
-                "message='" + message + '\'' +
+                "direction=" + direction +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

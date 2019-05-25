@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,14 +36,31 @@ public class StorageService {
         String json = IOUtils.toString(this.getClass().getResourceAsStream("/" + initFile), "UTF-8");
         me = objectMapper.readValue(json, Distributor.class);
 
-        Set<Ticket> newTickets = IntStream.range(1, 10).mapToObj(Ticket::new).collect(Collectors.toSet());
 
         for (Direction direction : me.getDirections()) {
-            direction.setTickets(new HashSet<>(newTickets));
+            Set<Ticket> newTickets = IntStream.range(1, 10).mapToObj(Ticket::new).collect(Collectors.toSet());
+            direction.setTickets(newTickets);
         }
         System.out.println(me);
 
     }
+
+    public boolean book(Direction direction) {
+        Optional<Direction> optional = me.getDirections()
+                .stream()
+                .filter(d -> d.getFrom().equals(direction.getFrom()))
+                .filter(d -> d.getTo().equals(direction.getTo()))
+                .findAny();
+        if (optional.isPresent()) {
+            Set<Ticket> free = optional.get().getFreeTickets();
+            if (!free.isEmpty()) {
+                free.iterator().next().setFree(false);
+                return true;
+            }
+            return false;
+        } else return false;
+    }
+
 
     public Distributor getMe() {
         return me;
