@@ -50,12 +50,14 @@ public class Cfg {
         ActorSystem system = ActorSystem.create("akka-spring-demo", config);
         System.out.println(system.settings().config().getString("akka.remote.netty.tcp.port"));
         SPRING_EXTENSION_PROVIDER.get(system).initialize(applicationContext);
+
+
         return system;
     }
 
     @Bean
     public ActorRef createGreeter() {
-        return actorSystem.actorOf(SPRING_EXTENSION_PROVIDER.get(actorSystem).props("bookingActor"), "greeter");
+        return actorSystem.actorOf(SPRING_EXTENSION_PROVIDER.get(actorSystem).props("bookingActor"), "seller");
     }
 
     @Bean

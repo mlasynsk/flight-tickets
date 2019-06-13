@@ -37,14 +37,14 @@ public class StorageService {
 
 
         for (Direction direction : me.getDirections()) {
-            Set<Ticket> newTickets = IntStream.range(1, 10).mapToObj(Ticket::new).collect(Collectors.toSet());
+            Set<Ticket> newTickets = IntStream.range(1, 10000).mapToObj(Ticket::new).collect(Collectors.toSet());
             direction.setTickets(newTickets);
         }
         System.out.println(me);
 
     }
 
-    public boolean book(Direction direction) {
+    public synchronized boolean book(Direction direction) {
         Optional<Direction> optional = me.getDirections()
                 .stream()
                 .filter(d -> d.getFrom().equals(direction.getFrom()))
@@ -53,8 +53,12 @@ public class StorageService {
         if (optional.isPresent()) {
             Set<Ticket> free = optional.get().getFreeTickets();
             if (!free.isEmpty()) {
-                free.iterator().next().setFree(false);
+                Ticket ticketToBuy = free.iterator().next();
+                System.out.println("Sold ticked number: " + ticketToBuy.getNumber());
+                ticketToBuy.setFree(false);
                 return true;
+            } else {
+                System.out.println("No tickets left for: " + direction);
             }
             return false;
         } else return false;
@@ -75,7 +79,7 @@ public class StorageService {
 
     public int findPortByName(String distributor) {
         return others.stream()
-                .filter(d->distributor.equals(d.getName()))
+                .filter(d -> distributor.equals(d.getName()))
                 .findAny()
                 .orElseThrow(RuntimeException::new)
                 .getPort();

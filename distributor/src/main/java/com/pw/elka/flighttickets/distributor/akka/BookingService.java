@@ -9,6 +9,10 @@ import com.pw.elka.flighttickets.model.Direction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+import static com.pw.elka.flighttickets.distributor.akka.cfg.SpringExtension.SPRING_EXTENSION_PROVIDER;
+
 @Component
 public class BookingService {
 
@@ -21,14 +25,23 @@ public class BookingService {
     @Autowired
     private StorageService storageService;
 
+    @PostConstruct
+    public void init() {
+        //creating sellers
+        for (int i = 1; i < 10; i++) {
+            system.actorOf(SPRING_EXTENSION_PROVIDER.get(system).props("bookingActor"), "seller"+i);
+        }
+
+    }
+
     public void test() {
-        ActorSelection selection = system.actorSelection("akka.tcp://akka-spring-demo@localhost:2002/user/greeter");
+        ActorSelection selection = system.actorSelection("akka.tcp://akka-spring-demo@localhost:2002/user/seller");
         selection.tell(new BookMessage("this is the first book message", new Direction("A", "B")), actorRef);
     }
 
     public void book(String distributor, Direction direction) {
         int port = storageService.findPortByName(distributor);
-        ActorSelection selection = system.actorSelection("akka.tcp://akka-spring-demo@localhost:" + port + "/user/greeter");
-        selection.tell(new BookMessage("this is the first book message", direction), actorRef);
+        ActorSelection selection = system.actorSelection("akka.tcp://akka-spring-demo@localhost:" + port + "/user/seller*");
+        selection.tell(new BookMessage("Booking the ticket", direction), actorRef);
     }
 }

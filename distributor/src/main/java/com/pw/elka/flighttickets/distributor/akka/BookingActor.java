@@ -18,6 +18,10 @@ public class BookingActor extends UntypedActor {
     @Autowired
     private StorageService storageService;
 
+    public BookingActor() {
+        System.out.println("Booking actor created:" + this.toString());
+    }
+
     @Override
     public void onReceive(Object message) throws Throwable {
         System.out.println(message);
@@ -25,7 +29,6 @@ public class BookingActor extends UntypedActor {
             String name = ((Greet) message).getName();
             System.out.println("--->Received:" + name);
             getSender().tell(greetingService.greet(name), getSelf());
-
 
         } else if (message instanceof BookMessage) {
             BookMessage bookMessage = (BookMessage) message;
