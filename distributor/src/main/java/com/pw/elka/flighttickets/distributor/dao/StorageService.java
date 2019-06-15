@@ -5,6 +5,7 @@ import com.pw.elka.flighttickets.model.Direction;
 import com.pw.elka.flighttickets.model.Distributor;
 import com.pw.elka.flighttickets.model.Ticket;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,8 @@ import java.util.stream.IntStream;
 
 @Repository
 public class StorageService {
+
+    final static Logger logger = Logger.getLogger(StorageService.class);
 
     private Distributor me;
 
@@ -37,10 +40,10 @@ public class StorageService {
 
 
         for (Direction direction : me.getDirections()) {
-            Set<Ticket> newTickets = IntStream.range(1, 10000).mapToObj(Ticket::new).collect(Collectors.toSet());
+            Set<Ticket> newTickets = IntStream.range(1, 100000).mapToObj(Ticket::new).collect(Collectors.toSet());
             direction.setTickets(newTickets);
         }
-        System.out.println(me);
+//        System.out.println(me);
 
     }
 
@@ -54,7 +57,7 @@ public class StorageService {
             Set<Ticket> free = optional.get().getFreeTickets();
             if (!free.isEmpty()) {
                 Ticket ticketToBuy = free.iterator().next();
-                System.out.println("Sold ticked number: " + ticketToBuy.getNumber());
+                logger.info("Sold ticked number: " + ticketToBuy.getNumber());
                 ticketToBuy.setFree(false);
                 return true;
             } else {
